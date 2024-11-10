@@ -12,6 +12,7 @@ function Popup() {
   const fetchNonFollowers = () => {
     setLoading(true);
     chrome.runtime.sendMessage({ action: "startCollecting" }, (response) => {
+      console.log("response : ", response);
       setNonFollowers(response.nonFollowers || []);
       setLoading(false);
     });
