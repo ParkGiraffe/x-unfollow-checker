@@ -1,5 +1,5 @@
 {
-  "name": "check-x-follower",
+  "name": "x-unfollow-checker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
