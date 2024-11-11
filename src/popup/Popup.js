@@ -1,4 +1,3 @@
-// src/Popup.js
 /* global chrome */
 
 import React, { useState } from "react";
@@ -6,21 +5,24 @@ import "./Popup.css";
 
 function Popup() {
   const [nonFollowers, setNonFollowers] = useState([]);
+  const [ids, setIds] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // 비팔로우 사용자 목록을 수집하는 함수
   const fetchNonFollowers = () => {
     setLoading(true);
     chrome.runtime.sendMessage({ action: "startCollecting" }, (response) => {
-      console.log("response : ", response);
-      setNonFollowers(response.nonFollowers || []);
-      setLoading(false);
+      if (response.nonFollowers && response.ids) {
+        setNonFollowers(response.nonFollowers);
+        setIds(response.ids);
+      } else if (response.error) {
+        console.error(response.error);
+      }
     });
   };
 
   return (
     <div className="popup-container">
-      <h2>비팔로우 사용자 확인</h2>
+      <h2>언팔 확인하기</h2>
       <button
         className="refresh-button"
         onClick={fetchNonFollowers}
@@ -35,7 +37,7 @@ function Popup() {
             <div key={index} className="non-follower-item">
               <span>{user}</span>
               <a
-                href={`https://twitter.com/${user}`}
+                href={`https://twitter.com/${ids[index]}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -43,6 +45,8 @@ function Popup() {
               </a>
             </div>
           ))
+        ) : loading ? (
+          <p>로딩 중입니다.</p>
         ) : (
           <p>비팔로우 사용자가 없습니다.</p>
         )}
