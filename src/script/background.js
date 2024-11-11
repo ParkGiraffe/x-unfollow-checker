@@ -1,6 +1,7 @@
 async function scrollAndCollect() {
   const nonFollowers = [];
   const allFollowers = [];
+  const ids = [];
 
   const scrollToBottom = () => {
     return new Promise((resolve) => {
