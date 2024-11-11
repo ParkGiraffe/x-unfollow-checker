@@ -33,8 +33,8 @@ function Popup() {
       } else if (response.error) {
         console.error(response.error);
       }
+      setLoading(false);
     });
-    setLoading(false);
   };
 
   return (
