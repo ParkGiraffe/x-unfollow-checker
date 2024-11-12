@@ -24,8 +24,11 @@ async function scrollAndCollect() {
             .querySelector("[href]")
             .getAttribute("href")
             .replace("/", "");
-          nonFollowers.push(userNick);
-          ids.push(userId);
+          // 중복 확인: ids 배열에 userId가 없는 경우만 추가
+          if (!ids.includes(userId)) {
+            nonFollowers.push(userNick);
+            ids.push(userId);
+          }
         }
       });
 
