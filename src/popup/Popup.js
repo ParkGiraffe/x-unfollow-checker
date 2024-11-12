@@ -49,6 +49,9 @@ function Popup() {
       </button>
 
       <div className="non-followers-list">
+        <p style={{ color: "red" }}>
+          주의 : 팔로우 추천에 뜨는 유저도 포함될 수 있습니다.
+        </p>
         {nonFollowers.length > 0 ? (
           nonFollowers.map((user, index) => (
             <div key={index} className="non-follower-item">
